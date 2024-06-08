@@ -1,0 +1,352 @@
+[
+    {
+        "editor": "Shueisha",
+        "category": "Action",
+        "title": "One Piece",
+        "author": "Eiichiro Oda",
+        "volumes": 100,
+        "cover_image": "https://www.glenat.com/sites/default/files/styles/large/public/images/livres/couv/9782723488525-T.jpg?itok=nJ2L42V4",
+        "release_date": "1997-07-22",
+        "status": "En cours"
+    },
+    {
+        "editor": "Kodansha",
+        "category": "Fantaisie",
+        "title": "Attack on Titan",
+        "author": "Hajime Isayama",
+        "volumes": 34,
+        "cover_image": "https://m.media-amazon.com/images/I/91tYV+R03kL._AC_UF1000,1000_QL80_.jpg",
+        "release_date": "2009-09-09",
+        "status": "Terminé"
+    },
+    {
+        "editor": "Shogakukan",
+        "category": "Romance",
+        "title": "Kimi ni Todoke",
+        "author": "Karuho Shiina",
+        "volumes": 30,
+        "cover_image": "https://m.media-amazon.com/images/I/81Jp-JCMgbL._AC_UF1000,1000_QL80_.jpg",
+        "release_date": "2005-08-11",
+        "status": "Terminé"
+    },
+    {
+        "editor": "Hakusensha",
+        "category": "Slice of Life",
+        "title": "March Comes in Like a Lion",
+        "author": "Chica Umino",
+        "volumes": 16,
+        "cover_image": "https://m.media-amazon.com/images/I/81qKwfE-hYS._AC_UF1000,1000_QL80_.jpg",
+        "release_date": "2007-07-13",
+        "status": "En cours"
+    },
+    {
+        "editor": "Square Enix",
+        "category": "Action",
+        "title": "Fullmetal Alchemist",
+        "author": "Hiromu Arakawa",
+        "volumes": 27,
+        "cover_image": "https://m.media-amazon.com/images/I/71V1kRB2fTL._AC_UF1000,1000_QL80_.jpg",
+        "release_date": "2001-07-12",
+        "status": "Terminé"
+    },
+    {
+        "editor": "Shueisha",
+        "category": "Aventure",
+        "title": "Hunter x Hunter",
+        "author": "Yoshihiro Togashi",
+        "volumes": 36,
+        "cover_image": "https://m.media-amazon.com/images/I/81kn7-YrYBL._AC_UF1000,1000_QL80_.jpg",
+        "release_date": "1998-03-03",
+        "status": "En cours"
+    },
+    {
+        "editor": "Kodansha",
+        "category": "Horreur",
+        "title": "The Flowers of Evil",
+        "author": "Shuzo Oshimi",
+        "volumes": 11,
+        "cover_image": "https://m.media-amazon.com/images/I/81Fndx9lfnL._AC_UF1000,1000_QL80_.jpg",
+        "release_date": "2009-09-09",
+        "status": "Terminé"
+    },
+    {
+        "editor": "Shogakukan",
+        "category": "Comedie",
+        "title": "Azumanga Daioh",
+        "author": "Kiyohiko Azuma",
+        "volumes": 4,
+        "cover_image": "https://m.media-amazon.com/images/I/51MvgzHQyCL._AC_UF1000,1000_QL80_.jpg",
+        "release_date": "1999-02-25",
+        "status": "Terminé"
+    },
+    {
+        "editor": "Hakusensha",
+        "category": "Fantaisie",
+        "title": "Fruits Basket",
+        "author": "Natsuki Takaya",
+        "volumes": 23,
+        "cover_image": "https://static.fnac-static.com/multimedia/images_produits/ZoomPE/4/8/1/9782840559184/tsp20130901122044/Fruits-basket.jpg",
+        "release_date": "1998-07-18",
+        "status": "Terminé"
+    },
+    {
+        "editor": "Square Enix",
+        "category": "Action",
+        "title": "Soul Eater",
+        "author": "Atsushi Ōkubo",
+        "volumes": 25,
+        "cover_image": "https://static.fnac-static.com/multimedia/PE/Images/FR/NR/71/63/27/2581361/1507-1/tsp20240216075331/Soul-Eater-tome-1.jpg",
+        "release_date": "2004-05-12",
+        "status": "Terminé"
+    },
+    {
+        "editor": "Shueisha",
+        "category": "Aventure",
+        "title": "JoJo's Bizarre Adventure",
+        "author": "Hirohiko Araki",
+        "volumes": 131,
+        "cover_image": "https://m.media-amazon.com/images/I/51XJ1S827RL._AC_UF1000,1000_QL80_.jpg",
+        "release_date": "1987-01-01",
+        "status": "En cours"
+    },
+    {
+        "editor": "Kodansha",
+        "category": "Science Fiction",
+        "title": "Akira",
+        "author": "Katsuhiro Otomo",
+        "volumes": 6,
+        "cover_image": "https://www.glenat.com/sites/default/files/images/livres/couv/9782344012406-001-T.jpeg",
+        "release_date": "1982-12-20",
+        "status": "Terminé"
+    },
+    {
+        "editor": "Shogakukan",
+        "category": "Drama",
+        "title": "20th Century Boys",
+        "author": "Naoki Urasawa",
+        "volumes": 22,
+        "cover_image": "https://m.media-amazon.com/images/I/81U3mblFoWL._AC_UF1000,1000_QL80_.jpg",
+        "release_date": "1999-09-27",
+        "status": "Terminé"
+    },
+    {
+        "editor": "Hakusensha",
+        "category": "Romance",
+        "title": "Skip Beat!",
+        "author": "Yoshiki Nakamura",
+        "volumes": 45,
+        "cover_image": "https://static.fnac-static.com/multimedia/PE/Images/FR/NR/b1/24/22/2237617/1507-1/tsp20240514071629/Skip-Beat.jpg",
+        "release_date": "2002-02-15",
+        "status": "En cours"
+    },
+    {
+        "editor": "Square Enix",
+        "category": "Fantaisie",
+        "title": "Black Butler",
+        "author": "Yana Toboso",
+        "volumes": 31,
+        "cover_image": "https://m.media-amazon.com/images/I/71TiGSTYbAL._AC_UF1000,1000_QL80_.jpg",
+        "release_date": "2006-09-16",
+        "status": "En cours"
+    },
+    {
+        "editor": "Shueisha",
+        "category": "Action",
+        "title": "My Hero Academia",
+        "author": "Kohei Horikoshi",
+        "volumes": 33,
+        "cover_image": "https://static.fnac-static.com/multimedia/PE/Images/FR/NR/a6/b1/75/7713190/1507-1/tsp20240209072209/My-Hero-Academia-T01.jpg",
+        "release_date": "2014-07-07",
+        "status": "En cours"
+    },
+    {
+        "editor": "Kodansha",
+        "category": "Fantaisie",
+        "title": "Fairy Tail",
+        "author": "Hiro Mashima",
+        "volumes": 63,
+        "cover_image": "https://m.media-amazon.com/images/I/91B0dwAjhcL._AC_UF1000,1000_QL80_.jpg",
+        "release_date": "2006-08-02",
+        "status": "Terminé"
+    },
+    {
+        "editor": "Shogakukan",
+        "category": "Action",
+        "title": "Inuyasha",
+        "author": "Rumiko Takahashi",
+        "volumes": 56,
+        "cover_image": "https://m.media-amazon.com/images/I/81fLa+y9KZL._AC_UF1000,1000_QL80_.jpg",
+        "release_date": "1996-11-13",
+        "status": "Terminé"
+    },
+    {
+        "editor": "Hakusensha",
+        "category": "Fantaisie",
+        "title": "Yona of the Dawn",
+        "author": "Mizuho Kusanagi",
+        "volumes": 37,
+        "cover_image": "https://m.media-amazon.com/images/I/91TmASOi0ZL._AC_UF1000,1000_QL80_.jpg",
+        "release_date": "2009-08-04",
+        "status": "En cours"
+    },
+    {
+        "editor": "Square Enix",
+        "category": "Aventure",
+        "title": "Magi: The Labyrinth of Magic",
+        "author": "Shinobu Ohtaka",
+        "volumes": 37,
+        "cover_image": "https://static.fnac-static.com/multimedia/PE/Images/FR/NR/4f/f7/31/3274575/1507-1/tsp20231116071549/Magi-The-Labyrinth-of-Magic-tome-1.jpg",
+        "release_date": "2009-06-03",
+        "status": "Terminé"
+    },
+    {
+        "editor": "Shueisha",
+        "category": "Action",
+        "title": "Naruto",
+        "author": "Masashi Kishimoto",
+        "volumes": 72,
+        "cover_image": "https://m.media-amazon.com/images/I/71GsyZF5AyL._AC_UF1000,1000_QL80_.jpg",
+        "release_date": "1999-09-21",
+        "status": "Terminé"
+    },
+    {
+        "editor": "Kodansha",
+        "category": "Science Fiction",
+        "title": "Battle Angel Alita",
+        "author": "Yukito Kishiro",
+        "volumes": 9,
+        "cover_image": "https://m.media-amazon.com/images/I/91UiLRiFJcL._AC_UF894,1000_QL80_.jpg",
+        "release_date": "1990-12-15",
+        "status": "Terminé"
+    },
+    {
+        "editor": "Shogakukan",
+        "category": "Comedie",
+        "title": "Great Teacher Onizuka",
+        "author": "Toru Fujisawa",
+        "volumes": 25,
+        "cover_image": "https://m.media-amazon.com/images/I/81VDeAyH1GL._AC_UF1000,1000_QL80_.jpg",
+        "release_date": "1997-05-16",
+        "status": "Terminé"
+    },
+    {
+        "editor": "Hakusensha",
+        "category": "Drama",
+        "title": "Nana",
+        "author": "Ai Yazawa",
+        "volumes": 21,
+        "cover_image": "https://m.media-amazon.com/images/I/91gNO2cThGL._AC_UF1000,1000_QL80_.jpg",
+        "release_date": "2000-05-15",
+        "status": "En cours"
+    },
+    {
+        "editor": "Square Enix",
+        "category": "Science Fiction",
+        "title": "Pandora Hearts",
+        "author": "Jun Mochizuki",
+        "volumes": 24,
+        "cover_image": "https://m.media-amazon.com/images/I/71nW1Ryt5jL._AC_UF1000,1000_QL80_.jpg",
+        "release_date": "2006-05-18",
+        "status": "Terminé"
+    },
+    {
+        "editor": "Shueisha",
+        "category": "Aventure",
+        "title": "Dragon Ball",
+        "author": "Akira Toriyama",
+        "volumes": 42,
+        "cover_image": "https://m.media-amazon.com/images/I/71OCG7ILxAL._AC_UF1000,1000_QL80_.jpg",
+        "release_date": "1984-12-03",
+        "status": "Terminé"
+    },
+    {
+        "editor": "Kodansha",
+        "category": "Horreur",
+        "title": "Parasyte",
+        "author": "Hitoshi Iwaaki",
+        "volumes": 10,
+        "cover_image": "https://www.glenat.com/sites/default/files/images/livres/couv/9782344039595-001-T.jpeg",
+        "release_date": "1988-10-22",
+        "status": "Terminé"
+    },
+    {
+        "editor": "Shogakukan",
+        "category": "Slice of Life",
+        "title": "Oishinbo",
+        "author": "Tetsu Kariya",
+        "volumes": 111,
+        "cover_image": "https://m.media-amazon.com/images/I/913XLHozZ0L._AC_UF1000,1000_QL80_.jpg",
+        "release_date": "1983-10-17",
+        "status": "En cours"
+    },
+    {
+        "editor": "Hakusensha",
+        "category": "Comedie",
+        "title": "Ouran High School Host Club",
+        "author": "Bisco Hatori",
+        "volumes": 18,
+        "cover_image": "https://m.media-amazon.com/images/I/418l8byixGL._AC_UF894,1000_QL80_.jpg",
+        "release_date": "2003-08-05",
+        "status": "Terminé"
+    },
+    {
+        "editor": "Square Enix",
+        "category": "Action",
+        "title": "Blue Exorcist",
+        "author": "Kazue Kato",
+        "volumes": 27,
+        "cover_image": "https://m.media-amazon.com/images/I/81X2n6OloVL._AC_UF1000,1000_QL80_.jpg",
+        "release_date": "2009-04-04",
+        "status": "En cours"
+    },
+    {
+        "editor": "Shueisha",
+        "category": "Romance",
+        "title": "Boys Over Flowers",
+        "author": "Yoko Kamio",
+        "volumes": 37,
+        "cover_image": "https://m.media-amazon.com/images/I/51SYJz3Q-bL.jpg",
+        "release_date": "1992-10-01",
+        "status": "Terminé"
+    },
+    {
+        "editor": "Kodansha",
+        "category": "Fantaisie",
+        "title": "The Seven Deadly Sins",
+        "author": "Nakaba Suzuki",
+        "volumes": 41,
+        "cover_image": "https://m.media-amazon.com/images/I/91GSy4frSdL._AC_UF1000,1000_QL80_.jpg",
+        "release_date": "2012-10-10",
+        "status": "Terminé"
+    },
+    {
+        "editor": "Shogakukan",
+        "category": "Drama",
+        "title": "Monster",
+        "author": "Naoki Urasawa",
+        "volumes": 18,
+        "cover_image": "https://static.fnac-static.com/multimedia/PE/Images/FR/NR/0d/05/2d/2950413/1507-1/tsp20240313183256/Monster-Integrale-Deluxe-Tome-1.jpg",
+        "release_date": "1994-12-05",
+        "status": "Terminé"
+    },
+    {
+        "editor": "Hakusensha",
+        "category": "Fantaisie",
+        "title": "Berserk",
+        "author": "Kentaro Miura",
+        "volumes": 41,
+        "cover_image": "https://www.glenat.com/sites/default/files/images/livres/couv/9782344020685-001-T.jpeg",
+        "release_date": "1989-08-25",
+        "status": "En cours"
+    },
+    {
+        "editor": "Square Enix",
+        "category": "Slice of Life",
+        "title": "Barakamon",
+        "author": "Satsuki Yoshino",
+        "volumes": 18,
+        "cover_image": "https://m.media-amazon.com/images/I/61u4DNym2dL._AC_UF1000,1000_QL80_.jpg",
+        "release_date": "2009-02-21",
+        "status": "Terminé"
+    }
+]

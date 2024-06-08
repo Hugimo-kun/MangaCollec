@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ parent() }}Tout les mangas{% endblock %}
+
+{% block body %}
+{% block navbar %}{{ parent() }}{% endblock %}
+
+<div class="example-wrapper">
+    <h1 class="text-4xl text-center my-2">Tout les mangas</h1>
+
+    {# <p class="text-2xl text-center">En construction</p> #}
+    {% for manga in mangas %}
+        <a class="flex border-2 border-red-500 rounded m-2 p-2" href="">
+            <div class="max-w-sm">
+                <img src="{{manga.coverImage}}" alt="{{manga.title}}">
+            </div>
+            <div>
+                <h2 class="text-3xl">{{manga.title}}</h2>
+                <p class="text-2xl">De {{manga.author.fullName}}</p>
+                <p>Édition : {{manga.editor.name}}</p>
+                {% if manga.status != "Pas commencé" %}
+                    <p class="text-2xl">Date de parution {{manga.releaseDate|date('d/m/Y')}}</p>
+                {% endif %}
+                <div class="flex justify-between">
+                    {% if manga.volumes > 1 %}
+                        <p class="text-2xl">{{manga.volumes}} tomes</p>
+                    {% else %}
+                        <p class="text-2xl">{{manga.volumes}} tome</p>
+                    {% endif %}
+                    <p class="text-2xl">{{manga.status.name}}</p>
+                </div>
+            </div>
+        </a>
+    {% endfor %}
+</div>
+{% endblock %}
