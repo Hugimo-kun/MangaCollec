@@ -90,7 +90,9 @@ class AppFixtures extends Fixture
                 ->setCoverImage($value['cover_image'])
                 ->setReleaseDate($releaseDate)
                 ->setCollected(false)
-                ->setReaded(false);
+                ->setReaded(false)
+                ->setCollectedVolumes(0)
+                ->setVolumesRead(0);
             if (isset($arrayCategory[$value["category"]])) {
                 $manga->setCategory($arrayCategory[$value["category"]]);
             }

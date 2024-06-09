@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Manga;
 use App\Repository\MangaRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -15,6 +16,14 @@ class MangaController extends AbstractController
         $mangas = $mangaRepository->findBy([], ['title' => 'asc']);
         return $this->render('manga/all.html.twig', [
             'mangas' => $mangas
+        ]);
+    }
+
+    #[Route('manga/{id}', name: 'manga_id')]
+    public function showManga(Manga $manga): Response
+    {
+        return $this->render('manga/item.html.twig', [
+            'manga' => $manga,
         ]);
     }
 }

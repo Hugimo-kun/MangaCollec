@@ -48,6 +48,12 @@ class Manga
     #[ORM\Column]
     private ?bool $readed = null;
 
+    #[ORM\Column]
+    private ?int $collected_volumes = null;
+
+    #[ORM\Column]
+    private ?int $volumes_read = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -169,6 +175,30 @@ class Manga
     public function setReaded(bool $readed): static
     {
         $this->readed = $readed;
+
+        return $this;
+    }
+
+    public function getCollectedVolumes(): ?int
+    {
+        return $this->collected_volumes;
+    }
+
+    public function setCollectedVolumes(int $collected_volumes): static
+    {
+        $this->collected_volumes = $collected_volumes;
+
+        return $this;
+    }
+
+    public function getVolumesRead(): ?int
+    {
+        return $this->volumes_read;
+    }
+
+    public function setVolumesRead(int $volumes_read): static
+    {
+        $this->volumes_read = $volumes_read;
 
         return $this;
     }
