@@ -7,8 +7,10 @@ use App\Entity\Category;
 use App\Entity\Editor;
 use App\Entity\Manga;
 use App\Entity\Status;
+use App\Entity\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class AppFixtures extends Fixture
 {
@@ -16,6 +18,11 @@ class AppFixtures extends Fixture
     private const NAME_EDITOR = ["Shueisha", "Kodansha", "Shogakukan", "Hakusensha", "Square Enix", "Pas définie"];
     private const NAME_STATUS = ["Terminé", "En cours", "Pas commencé"];
     private const NAME_AUTHOR = ["Eiichiro Oda", "Hajime Isayama", "Karuho Shiina", "Chica Umino", "Hiromu Arakawa", "Yoshihiro Togashi", "Shuzo Oshimi", "Kiyohiko Azuma", "Natsuki Takaya", "Atsushi Ōkubo", "Hirohiko Araki", "Katsuhiro Otomo", "Naoki Urasawa", "Yoshiki Nakamura", "Yana Toboso", "Kohei Horikoshi", "Hiro Mashima", "Rumiko Takahashi", "Mizuho Kusanagi", "Shinobu Ohtaka", "Masashi Kishimoto", "Yukito Kishiro", "Toru Fujisawa", "Ai Yazawa", "Jun Mochizuki", "Akira Toriyama", "Hitoshi Iwaaki", "Tetsu Kariya", "Bisco Hatori", "Kazue Kato", "Yoko Kamio", "Nakaba Suzuki", "Naoki Urasawa", "Kentaro Miura", "Satsuki Yoshino"];
+
+    public function __construct(private UserPasswordHasherInterface $hasher)
+    {
+    }
+
     private function JSONTranslate($file)
     {
         $filename = __DIR__ . '/' . $file;
@@ -127,6 +134,21 @@ class AppFixtures extends Fixture
             } */
             $manager->persist($manga);
         }
+
+        $user = new User();
+        $user
+            ->setEmail("user@manga_collec.com")
+            ->setPassword($this->hasher->hashPassword($user, "quoicoubeh"));
+
+        $manager->persist($user);
+
+        $user = new User();
+        $user
+            ->setEmail("admin@manga_collec.com")
+            ->setPassword($this->hasher->hashPassword($user, "bobby"))
+            ->setRoles(["ROLE_ADMIN"]);
+
+        $manager->persist($user);
 
         $manager->flush();
     }
