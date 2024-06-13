@@ -17,7 +17,7 @@
                 <div class="h-2/3 flex flex-col justify-around">
                     <h2 class="text-3xl">{{manga.title}}</h2>
                     <p class="text-2xl">De {{manga.author.fullName}}</p>
-                    <p class="text-xl">Édition : {{manga.editor.name}}</p>
+                    <p class="text-2xl">Édition : {{manga.editor.name}}</p>
                     {% if manga.status != "Pas commencé" %}
                         <p class="text-2xl">Date de parution : {{manga.releaseDate|date('d/m/Y')}}</p>
                     {% endif %}

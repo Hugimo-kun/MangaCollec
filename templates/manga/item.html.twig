@@ -7,13 +7,14 @@
     <div>
         <h1 class="text-4xl text-center my-2">{{manga.title}}</h1>
         <div class="flex">
-            <div class="flex">
+            <div class="flex flex-col justify-center">
                 <div class="flex border-2 border-red-500 rounded m-4 p-4 h-min justify-self-center">
                     <div class="max-w-sm">
                         <img src="{{manga.coverImage}}" alt="{{manga.title}}">
                     </div>
                     <div class="flex flex-col justify-around mx-3 w-full">
                         <div class="flex flex-col">
+                            <p class="text-3xl">{{manga.title}}</p>
                             <p class="text-3xl">Créée par {{manga.author.fullName}}</p>
                             <p class="text-3xl">Maison d'édition : {{manga.editor.name}}</p>
                             {% if manga.status != "Pas commencé" %}
@@ -56,9 +57,11 @@
                 </div>
             </div>
             {% if manga.status != "Pas commencé" %}
-                <div class="">
+                <div class="w-1/2 flex-1 overflow-y-scroll fade-out">
                     {% for i in 1 .. manga.volumes %}
-                        <p class="text-3xl">Tome {{i}}</p>
+                        <div class="border-2 border-white my-2">
+                            <p class="text-3xl">Tome {{i}}</p>
+                        </div>
                     {% endfor %}
                 </div>
             {% endif %}
