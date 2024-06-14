@@ -2,11 +2,13 @@
 
 {% block title %}{{ parent() }}{{manga.title}}{% endblock %}
 
+{% block body_class %}overflow-hidden{% endblock %}
+
 {% block body %}
 {% block navbar %}{{ parent() }}{% endblock %}
     <div>
         <h1 class="text-4xl text-center my-2">{{manga.title}}</h1>
-        <div class="flex">
+        <div class="flex h-screen">
             <div class="flex flex-col justify-center">
                 <div class="flex border-2 border-red-500 rounded m-4 p-4 h-min justify-self-center">
                     <div class="max-w-sm">
@@ -57,15 +59,18 @@
                 </div>
             </div>
             {% if manga.status != "Pas commencé" %}
-                <div class="w-1/2 flex-1 overflow-y-scroll fade-out">
+                <div id="custom" class="w-1/2 h-4/5 overflow-y-auto">
                     {% for i in 1 .. manga.volumes %}
-                        <div class="border-2 border-white my-2">
-                            <p class="text-3xl">Tome {{i}}</p>
+                        <div class="border-2 border-white rounded my-2">
+                            <p class="text-3xl text-center">Tome {{i}}</p>
+                            <div class="m-1 flex justify-around">
+                            <img class="w-14 bg-orange-500 rounded-full" src="{{ asset('imgs/cross.svg') }}" alt="cross logo">
+                            <img class="w-14 bg-orange-500 rounded-full" src="{{ asset('imgs/eye-closed.svg') }}" alt="eye closed logo">
+                            </div>
                         </div>
                     {% endfor %}
                 </div>
             {% endif %}
         </div>
     </div>
-
 {% endblock %}
