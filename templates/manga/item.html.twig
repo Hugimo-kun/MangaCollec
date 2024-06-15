@@ -6,9 +6,9 @@
 
 {% block body %}
 {% block navbar %}{{ parent() }}{% endblock %}
-    <div>
+    <div class="flex flex-col h-screen">
         <h1 class="text-4xl text-center my-2">{{manga.title}}</h1>
-        <div class="flex h-screen">
+        <div class="flex-grow flex items-center justify-center">
             <div class="flex flex-col justify-center">
                 <div class="flex border-2 border-red-500 rounded m-4 p-4 h-min justify-self-center">
                     <div class="max-w-sm">
@@ -59,7 +59,7 @@
                 </div>
             </div>
             {% if manga.status != "Pas commencé" %}
-                <div id="custom" class="w-1/2 h-4/5 overflow-y-auto">
+                <div id="custom" class="w-1/2 h-96 overflow-y-auto mt-4">
                     {% for i in 1 .. manga.volumes %}
                         <div class="border-2 border-white rounded my-2">
                             <p class="text-3xl text-center">Tome {{i}}</p>

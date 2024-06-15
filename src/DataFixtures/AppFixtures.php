@@ -137,14 +137,14 @@ class AppFixtures extends Fixture
 
         $user = new User();
         $user
-            ->setEmail("user@manga_collec.com")
+            ->setEmail("user@mangacollec.com")
             ->setPassword($this->hasher->hashPassword($user, "quoicoubeh"));
 
         $manager->persist($user);
 
         $user = new User();
         $user
-            ->setEmail("admin@manga_collec.com")
+            ->setEmail("admin@mangacollec.com")
             ->setPassword($this->hasher->hashPassword($user, "bobby"))
             ->setRoles(["ROLE_ADMIN"]);
 

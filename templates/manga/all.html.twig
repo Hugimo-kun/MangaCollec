@@ -9,6 +9,7 @@
     <h1 class="text-4xl text-center my-2">Tout les mangas</h1>
 
     {% for manga in mangas %}
+    {% if manga.collected === true %} {# en attendant de faire correctement les relations c'est si un manga est totalement collecté alors il est afficher #}
         <a class="flex border-2 border-red-500 rounded m-4 p-4" href="{{path('manga_id', { id: manga.id })}}">
             <div class="max-w-sm">
                 <img src="{{manga.coverImage}}" alt="{{manga.title}}">
@@ -56,6 +57,7 @@
                 </div>
             </div>
         </a>
+    {% endif %}
     {% endfor %}
 </div>
 {% endblock %}

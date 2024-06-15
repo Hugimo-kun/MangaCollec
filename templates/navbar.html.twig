@@ -7,7 +7,11 @@
         </div>
         <div class="text-2xl me-1">
             <a class="bg-sky-600 p-1 mx-1 border-2 border-sky-700 rounded hover:bg-sky-700" href="">S'abonner au newsletter</a>
-            <a class="bg-slate-400 mx-1 p-1 border-2 border-slate-500 rounded hover:bg-slate-500" href="">Se connecter</a>
+            {% if app.user %}
+                <a href="{{path('app_logout')}}" class="bg-red-600 mx-1 p-1 border-2 border-red-700 rounded hover:bg-red-700">Se déconnecter</a>
+            {% else %}
+                <a class="bg-slate-400 mx-1 p-1 border-2 border-slate-500 rounded hover:bg-slate-500" href="{{path('app_login')}}">Se connecter</a>
+            {% endif %}
         </div>
     </nav>
 {% endblock %}

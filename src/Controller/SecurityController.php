@@ -2,7 +2,11 @@
 
 namespace App\Controller;
 
+use App\Entity\User;
+use App\Form\SignInType;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
@@ -28,5 +32,30 @@ class SecurityController extends AbstractController
     public function logout(): void
     {
         throw new \LogicException('This method can be blank - it will be intercepted by the logout key on your firewall.');
+    }
+
+    #[Route(path: '/inscription', name: 'app_signIn')]
+    public function signIn(Request $req, EntityManagerInterface $em): Response
+    {
+        $user = new User();
+        $form = $this->createForm(SignInType::class, $user);
+
+        $form->handleRequest($req);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em->persist($user);
+            $em->flush();
+
+            return $this->redirectToRoute('app_signIn_thanks', ['email' => $user->getEmail()]);
+        }
+
+        return $this->render('security/signIn.html.twig', [
+            'signInForm' => $form,
+        ]);
+    }
+    #[Route('/inscription/thanks/{email}', name: 'app_signIn_thanks')]
+    public function thanks(string $email): Response
+    {
+        return $this->render('signInThanks.html.twig', ['email' => $email]);
     }
 }

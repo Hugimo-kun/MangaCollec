@@ -1,0 +1,10 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{parent()}} - Merci pour votre inscription{% endblock %}
+
+{% block navbar %}{{parent()}}{% endblock %}
+
+{% block body %}
+    <h1 class="text-4xl text-center my-2">Vous êtes bien inscrit</h1>
+    <h2 class="text-3xl text-center">{{ email }}</h2>
+{% endblock %}
