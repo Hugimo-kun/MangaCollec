@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ parent() }}Newsletter{% endblock %}
+
+{% block body %}
+{% block navbar %}{{ parent() }}{% endblock %}
+<h1 class="my-2 text-center text-4xl">S'abonner au Newsletter</h1>
+
+<div class="w-full px-3 sm:w-1/2 mx-auto flex flex-col">
+    {{form(newsletterForm)}}
+</div>
+<a href="{{path('app_index')}}" class="rounded bg-gray-500 p-2 text-2xl my-2 text-white self-center hover:bg-gray-600">Revenir à l'acceuil</a>
+{% endblock %}

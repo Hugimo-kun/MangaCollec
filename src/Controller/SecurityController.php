@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Controller\Newsletter\EmailNotification;
 use App\Entity\User;
 use App\Form\SignInType;
 use Doctrine\ORM\EntityManagerInterface;
@@ -35,7 +36,7 @@ class SecurityController extends AbstractController
     }
 
     #[Route(path: '/inscription', name: 'app_signIn')]
-    public function signIn(Request $req, EntityManagerInterface $em): Response
+    public function signIn(Request $req, EntityManagerInterface $em, EmailNotification $emailNotification): Response
     {
         $user = new User();
         $form = $this->createForm(SignInType::class, $user);
@@ -45,6 +46,8 @@ class SecurityController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $em->persist($user);
             $em->flush();
+
+            $emailNotification->sendSignInConfirmationEmail($user);
 
             return $this->redirectToRoute('app_signIn_thanks', ['email' => $user->getEmail()]);
         }
@@ -56,6 +59,6 @@ class SecurityController extends AbstractController
     #[Route('/inscription/thanks/{email}', name: 'app_signIn_thanks')]
     public function thanks(string $email): Response
     {
-        return $this->render('signInThanks.html.twig', ['email' => $email]);
+        return $this->render('security/signInThanks.html.twig', ['email' => $email]);
     }
 }

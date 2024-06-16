@@ -9,55 +9,53 @@
     <h1 class="text-4xl text-center my-2">Tout les mangas</h1>
 
     {% for manga in mangas %}
-    {% if manga.collected === true %} {# en attendant de faire correctement les relations c'est si un manga est totalement collecté alors il est afficher #}
-        <a class="flex border-2 border-red-500 rounded m-4 p-4" href="{{path('manga_id', { id: manga.id })}}">
-            <div class="max-w-sm">
-                <img src="{{manga.coverImage}}" alt="{{manga.title}}">
+    <a class="flex border-2 border-red-500 rounded m-4 p-4" href="{{path('manga_id', { id: manga.id })}}">
+        <div class="max-w-sm">
+            <img src="{{manga.coverImage}}" alt="{{manga.title}}">
+        </div>
+        <div class="flex flex-col justify-between ms-2 w-full">
+            <div class="h-2/3 flex flex-col justify-around">
+                <h2 class="text-3xl">{{manga.title}}</h2>
+                <p class="text-2xl">De {{manga.author.fullName}}</p>
+                <p class="text-2xl">Édition : {{manga.editor.name}}</p>
+                {% if manga.status != "Pas commencé" %}
+                    <p class="text-2xl">Date de parution : {{manga.releaseDate|date('d/m/Y')}}</p>
+                {% endif %}
             </div>
-            <div class="flex flex-col justify-between ms-2 w-full">
-                <div class="h-2/3 flex flex-col justify-around">
-                    <h2 class="text-3xl">{{manga.title}}</h2>
-                    <p class="text-2xl">De {{manga.author.fullName}}</p>
-                    <p class="text-2xl">Édition : {{manga.editor.name}}</p>
-                    {% if manga.status != "Pas commencé" %}
-                        <p class="text-2xl">Date de parution : {{manga.releaseDate|date('d/m/Y')}}</p>
-                    {% endif %}
-                </div>
-                <div class="flex justify-between me-2">
-                    {% if manga.volumes > 1 %}
-                        <p class="text-2xl">{{manga.volumes}} tomes</p>
+            <div class="flex justify-between me-2">
+                {% if manga.volumes > 1 %}
+                    <p class="text-2xl">{{manga.volumes}} tomes</p>
+                {% else %}
+                    <p class="text-2xl">{{manga.volumes}} tome</p>
+                {% endif %}
+                <p class="text-2xl">Status : {{manga.status.name}}</p>
+            </div>
+            <div class="flex justify-around">
+                {% if manga.collected != false %}
+                    <div class="bg-green-600 rounded flex flex-col p-4">
+                        <p class="text-2xl text-center">Collectionné</p>
+                        <p class="text-2xl text-center">{{manga.collectedVolumes}} / {{manga.volumes}}</p>
+                    </div>
                     {% else %}
-                        <p class="text-2xl">{{manga.volumes}} tome</p>
-                    {% endif %}
-                    <p class="text-2xl">Status : {{manga.status.name}}</p>
-                </div>
-                <div class="flex justify-around">
-                    {% if manga.collected != false %}
-                        <div class="bg-green-600 rounded flex flex-col p-4">
-                            <p class="text-2xl text-center">Collectionné</p>
+                        <div class="bg-red-700 rounded flex flex-col p-4">
+                            <p class="text-2xl text-center">Pas fini de collectionner</p>
                             <p class="text-2xl text-center">{{manga.collectedVolumes}} / {{manga.volumes}}</p>
                         </div>
-                        {% else %}
-                            <div class="bg-red-700 rounded flex flex-col p-4">
-                                <p class="text-2xl text-center">Pas fini de collectionner</p>
-                                <p class="text-2xl text-center">{{manga.collectedVolumes}} / {{manga.volumes}}</p>
-                            </div>
-                    {% endif %}
-                    {% if manga.readed != false %}
-                        <div class="bg-blue-600 rounded flex flex-col p-4">
-                            <p class="text-2xl text-center">Lu</p>
+                {% endif %}
+                {% if manga.readed != false %}
+                    <div class="bg-blue-600 rounded flex flex-col p-4">
+                        <p class="text-2xl text-center">Lu</p>
+                        <p class="text-2xl text-center">{{manga.volumesRead}} / {{manga.volumes}}</p>
+                    </div>
+                    {% else %}
+                        <div class="bg-red-700 rounded flex flex-col p-4">
+                            <p class="text-2xl text-center">Pas fini de lire</p>
                             <p class="text-2xl text-center">{{manga.volumesRead}} / {{manga.volumes}}</p>
                         </div>
-                        {% else %}
-                            <div class="bg-red-700 rounded flex flex-col p-4">
-                                <p class="text-2xl text-center">Pas fini de lire</p>
-                                <p class="text-2xl text-center">{{manga.volumesRead}} / {{manga.volumes}}</p>
-                            </div>
-                    {% endif %}
-                </div>
+                {% endif %}
             </div>
-        </a>
-    {% endif %}
+        </div>
+    </a>
     {% endfor %}
 </div>
 {% endblock %}

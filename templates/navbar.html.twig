@@ -6,7 +6,7 @@
             <a class="mx-1 hover:text-slate-200" href="">Votre liste</a>
         </div>
         <div class="text-2xl me-1">
-            <a class="bg-sky-600 p-1 mx-1 border-2 border-sky-700 rounded hover:bg-sky-700" href="">S'abonner au newsletter</a>
+            <a class="bg-sky-600 p-1 mx-1 border-2 border-sky-700 rounded hover:bg-sky-700" href="{{path('app_newsletter')}}">S'abonner au newsletter</a>
             {% if app.user %}
                 <a href="{{path('app_logout')}}" class="bg-red-600 mx-1 p-1 border-2 border-red-700 rounded hover:bg-red-700">Se déconnecter</a>
             {% else %}
