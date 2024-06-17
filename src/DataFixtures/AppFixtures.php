@@ -6,6 +6,7 @@ use App\Entity\Author;
 use App\Entity\Category;
 use App\Entity\Editor;
 use App\Entity\Manga;
+use App\Entity\MangaUser;
 use App\Entity\Status;
 use App\Entity\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
@@ -18,7 +19,7 @@ class AppFixtures extends Fixture
     private const NAME_EDITOR = ["Shueisha", "Kodansha", "Shogakukan", "Hakusensha", "Square Enix", "Pas définie"];
     private const NAME_STATUS = ["Terminé", "En cours", "Pas commencé"];
     private const NAME_AUTHOR = ["Eiichiro Oda", "Hajime Isayama", "Karuho Shiina", "Chica Umino", "Hiromu Arakawa", "Yoshihiro Togashi", "Shuzo Oshimi", "Kiyohiko Azuma", "Natsuki Takaya", "Atsushi Ōkubo", "Hirohiko Araki", "Katsuhiro Otomo", "Naoki Urasawa", "Yoshiki Nakamura", "Yana Toboso", "Kohei Horikoshi", "Hiro Mashima", "Rumiko Takahashi", "Mizuho Kusanagi", "Shinobu Ohtaka", "Masashi Kishimoto", "Yukito Kishiro", "Toru Fujisawa", "Ai Yazawa", "Jun Mochizuki", "Akira Toriyama", "Hitoshi Iwaaki", "Tetsu Kariya", "Bisco Hatori", "Kazue Kato", "Yoko Kamio", "Nakaba Suzuki", "Naoki Urasawa", "Kentaro Miura", "Satsuki Yoshino"];
-
+    private const NUMBER_VOLUME_AOT = 6;
     public function __construct(private UserPasswordHasherInterface $hasher)
     {
     }
@@ -95,11 +96,7 @@ class AppFixtures extends Fixture
                 ->setTitle($value['title'])
                 ->setVolumes($value['volumes'])
                 ->setCoverImage($value['cover_image'])
-                ->setReleaseDate($releaseDate)
-                ->setCollected(false)
-                ->setReaded(false)
-                ->setCollectedVolumes(0)
-                ->setVolumesRead(0);
+                ->setReleaseDate($releaseDate);
             if (isset($arrayCategory[$value["category"]])) {
                 $manga->setCategory($arrayCategory[$value["category"]]);
             }
@@ -112,43 +109,36 @@ class AppFixtures extends Fixture
             if (isset($arrayAuthor[$value["author"]])) {
                 $manga->setAuthor($arrayAuthor[$value["author"]]);
             }
-            /* foreach ($arrayCategory as $nameCategory) {
-                if ($nameCategory == $value["category"]) {
-                    $manga->setCategory($value["category"]);
-                }
-            }
-            foreach ($arrayEditor as $nameEditor) {
-                if ($nameEditor == $value["editor"]) {
-                    $manga->setEditor($value["editor"]);
-                }
-            }
-            foreach ($arrayStatus as $nameStatus) {
-                if ($nameStatus == $value["status"]) {
-                    $manga->setStatus($value["status"]);
-                }
-            }
-            foreach ($arrayAuthor as $author) {
-                if ($author == $value["author"]) {
-                    $manga->setAuthor($value["author"]);
-                }
-            } */
             $manager->persist($manga);
+            $mangaChoose[] = $manga;
         }
 
-        $user = new User();
-        $user
+        $user1 = new User();
+        $user1
             ->setEmail("user@mangacollec.com")
-            ->setPassword($this->hasher->hashPassword($user, "quoicoubeh"));
+            ->setPassword("quoicoubeh");
 
-        $manager->persist($user);
+        $manager->persist($user1);
 
-        $user = new User();
-        $user
+        $user2 = new User();
+        $user2
             ->setEmail("admin@mangacollec.com")
-            ->setPassword($this->hasher->hashPassword($user, "bobby"))
+            ->setPassword("bobby")
             ->setRoles(["ROLE_ADMIN"]);
 
-        $manager->persist($user);
+        $manager->persist($user2);
+
+        for ($i = 0; $i < self::NUMBER_VOLUME_AOT; $i++) {
+            $mangaUser = new MangaUser();
+            $mangaUser
+                ->setUser($user1)
+                ->setManga($mangaChoose[11])
+                ->setVolumeNumber($i)
+                ->setCollected(true)
+                ->setReaded(true);
+
+            $manager->persist($mangaUser);
+        }
 
         $manager->flush();
     }

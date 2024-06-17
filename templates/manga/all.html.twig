@@ -31,29 +31,24 @@
                 <p class="text-2xl">Status : {{manga.status.name}}</p>
             </div>
             <div class="flex justify-around">
-                {% if manga.collected != false %}
-                    <div class="bg-green-600 rounded flex flex-col p-4">
-                        <p class="text-2xl text-center">Collectionné</p>
-                        <p class="text-2xl text-center">{{manga.collectedVolumes}} / {{manga.volumes}}</p>
+                    {% set collectedVolumes = manga.mangaUser|filter(userManga => userManga.user == app.user and userManga.isCollected)|length %}
+                    {% set isCollectedAll = collectedVolumes == manga.volumes %}
+                    {% set isCollectedSome = collectedVolumes > 0 and not isCollectedAll %}
+                    
+                    <div class="{{ isCollectedAll ? 'bg-green-600' : (isCollectedSome ? 'bg-orange-600' : 'bg-red-700') }} rounded flex flex-col p-4">
+                        <p class="text-2xl text-center">{{ isCollectedAll ? 'Collectionné' : 'Pas fini de collectionné' }}</p>
+                        <p class="text-2xl text-center">{{ collectedVolumes }} / {{ manga.volumes }}</p>
                     </div>
-                    {% else %}
-                        <div class="bg-red-700 rounded flex flex-col p-4">
-                            <p class="text-2xl text-center">Pas fini de collectionner</p>
-                            <p class="text-2xl text-center">{{manga.collectedVolumes}} / {{manga.volumes}}</p>
-                        </div>
-                {% endif %}
-                {% if manga.readed != false %}
-                    <div class="bg-blue-600 rounded flex flex-col p-4">
-                        <p class="text-2xl text-center">Lu</p>
-                        <p class="text-2xl text-center">{{manga.volumesRead}} / {{manga.volumes}}</p>
+                    
+                    {% set readVolumes = manga.mangaUser|filter(userManga => userManga.user == app.user and userManga.isReaded)|length %}
+                    {% set isReadedAll = readVolumes == manga.volumes %}
+                    {% set isReadedSome = readVolumes > 0 and not isReadedAll %}
+                    
+                    <div class="{{ isReadedAll ? 'bg-blue-600' : (isReadedSome ? 'bg-orange-600' : 'bg-red-700') }} rounded flex flex-col p-4">
+                        <p class="text-2xl text-center">{{ isReadedAll ? 'Lu' : 'Pas fini de lire' }}</p>
+                        <p class="text-2xl text-center">{{ readVolumes }} / {{ manga.volumes }}</p>
                     </div>
-                    {% else %}
-                        <div class="bg-red-700 rounded flex flex-col p-4">
-                            <p class="text-2xl text-center">Pas fini de lire</p>
-                            <p class="text-2xl text-center">{{manga.volumesRead}} / {{manga.volumes}}</p>
-                        </div>
-                {% endif %}
-            </div>
+                </div>
         </div>
     </a>
     {% endfor %}

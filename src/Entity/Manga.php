@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\MangaRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -23,8 +25,8 @@ class Manga
     #[ORM\Column(type: Types::TEXT)]
     private ?string $cover_image = null;
 
-    #[ORM\Column]
-    private ?bool $collected = null;
+    /*     #[ORM\Column]
+        private ?bool $collected = null; */
 
     #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $release_date = null;
@@ -45,14 +47,25 @@ class Manga
     #[ORM\JoinColumn(nullable: false)]
     private ?Status $status = null;
 
-    #[ORM\Column]
-    private ?bool $readed = null;
+    /**
+     * @var Collection<int, MangaUser>
+     */
+    #[ORM\OneToMany(targetEntity: MangaUser::class, mappedBy: 'manga')]
+    private Collection $MangaUser;
 
-    #[ORM\Column]
-    private ?int $collected_volumes = null;
+    public function __construct()
+    {
+        $this->MangaUser = new ArrayCollection();
+    }
 
-    #[ORM\Column]
-    private ?int $volumes_read = null;
+    /*     #[ORM\Column]
+        private ?bool $readed = null; */
+
+    /*     #[ORM\Column]
+        private ?int $collected_volumes = null; */
+
+    /*     #[ORM\Column]
+        private ?int $volumes_read = null; */
 
     public function getId(): ?int
     {
@@ -95,17 +108,17 @@ class Manga
         return $this;
     }
 
-    public function isCollected(): ?bool
-    {
-        return $this->collected;
-    }
+    /*     public function isCollected(): ?bool
+        {
+            return $this->collected;
+        }
 
-    public function setCollected(bool $collected): static
-    {
-        $this->collected = $collected;
+        public function setCollected(bool $collected): static
+        {
+            $this->collected = $collected;
 
-        return $this;
-    }
+            return $this;
+        } */
 
     public function getReleaseDate(): ?\DateTimeInterface
     {
@@ -167,38 +180,68 @@ class Manga
         return $this;
     }
 
-    public function isReaded(): ?bool
+    /*     public function isReaded(): ?bool
+        {
+            return $this->readed;
+        }
+
+        public function setReaded(bool $readed): static
+        {
+            $this->readed = $readed;
+
+            return $this;
+        }
+
+        public function getCollectedVolumes(): ?int
+        {
+            return $this->collected_volumes;
+        }
+
+        public function setCollectedVolumes(int $collected_volumes): static
+        {
+            $this->collected_volumes = $collected_volumes;
+
+            return $this;
+        }
+
+        public function getVolumesRead(): ?int
+        {
+            return $this->volumes_read;
+        }
+
+        public function setVolumesRead(int $volumes_read): static
+        {
+            $this->volumes_read = $volumes_read;
+
+            return $this;
+        } */
+
+    /**
+     * @return Collection<int, MangaUser>
+     */
+    public function getMangaUser(): Collection
     {
-        return $this->readed;
+        return $this->MangaUser;
     }
 
-    public function setReaded(bool $readed): static
+    public function addMangaUser(MangaUser $mangaUser): static
     {
-        $this->readed = $readed;
+        if (!$this->MangaUser->contains($mangaUser)) {
+            $this->MangaUser->add($mangaUser);
+            $mangaUser->setManga($this);
+        }
 
         return $this;
     }
 
-    public function getCollectedVolumes(): ?int
+    public function removeMangaUser(MangaUser $mangaUser): static
     {
-        return $this->collected_volumes;
-    }
-
-    public function setCollectedVolumes(int $collected_volumes): static
-    {
-        $this->collected_volumes = $collected_volumes;
-
-        return $this;
-    }
-
-    public function getVolumesRead(): ?int
-    {
-        return $this->volumes_read;
-    }
-
-    public function setVolumesRead(int $volumes_read): static
-    {
-        $this->volumes_read = $volumes_read;
+        if ($this->MangaUser->removeElement($mangaUser)) {
+            // set the owning side to null (unless already changed)
+            if ($mangaUser->getManga() === $this) {
+                $mangaUser->setManga(null);
+            }
+        }
 
         return $this;
     }

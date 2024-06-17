@@ -7,6 +7,7 @@ use App\Entity\User;
 use App\Form\SignInType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
@@ -36,7 +37,7 @@ class SecurityController extends AbstractController
     }
 
     #[Route(path: '/inscription', name: 'app_signIn')]
-    public function signIn(Request $req, EntityManagerInterface $em, EmailNotification $emailNotification): Response
+    public function signIn(Request $req, EntityManagerInterface $em, EmailNotification $emailNotification, Security $security): Response
     {
         $user = new User();
         $form = $this->createForm(SignInType::class, $user);
@@ -48,6 +49,8 @@ class SecurityController extends AbstractController
             $em->flush();
 
             $emailNotification->sendSignInConfirmationEmail($user);
+
+            $security->login($user);
 
             return $this->redirectToRoute('app_signIn_thanks', ['email' => $user->getEmail()]);
         }

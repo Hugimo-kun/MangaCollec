@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -30,6 +32,17 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     #[ORM\Column]
     private ?string $password = null;
+
+    /**
+     * @var Collection<int, MangaUser>
+     */
+    #[ORM\OneToMany(targetEntity: MangaUser::class, mappedBy: 'user')]
+    private Collection $MangaUser;
+
+    public function __construct()
+    {
+        $this->MangaUser = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -104,5 +117,35 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;
+    }
+
+    /**
+     * @return Collection<int, MangaUser>
+     */
+    public function getMangaUser(): Collection
+    {
+        return $this->MangaUser;
+    }
+
+    public function addMangaUser(MangaUser $mangaUser): static
+    {
+        if (!$this->MangaUser->contains($mangaUser)) {
+            $this->MangaUser->add($mangaUser);
+            $mangaUser->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeMangaUser(MangaUser $mangaUser): static
+    {
+        if ($this->MangaUser->removeElement($mangaUser)) {
+            // set the owning side to null (unless already changed)
+            if ($mangaUser->getUser() === $this) {
+                $mangaUser->setUser(null);
+            }
+        }
+
+        return $this;
     }
 }
