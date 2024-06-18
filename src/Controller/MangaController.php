@@ -8,6 +8,7 @@ use App\Repository\MangaRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Security\Core\Security;
 
 class MangaController extends AbstractController
 {
@@ -28,16 +29,18 @@ class MangaController extends AbstractController
         ]);
     }
 
-    #[Route('liste/manga', name: 'liste_manga')]
-    public function listMyManga(MangaRepository $mangaRepository, User $user): Response
+    #[Route('utilisateur/manga', name: 'user_manga')]
+    public function listMyManga(MangaRepository $mangaRepository, Security $security): Response
     {
+        $user = $security->getUser();
+
         if (!$user) {
             return $this->redirectToRoute('app_login');
         }
 
         $mangas = $mangaRepository->findBy([], ['title' => 'asc']);
 
-        return $this->render('list/all.html.twig', [
+        return $this->render('user/all.html.twig', [
             'mangas' => $mangas
         ]);
     }

@@ -6,6 +6,12 @@
 
 {% block body %}
 {% block navbar %}{{ parent() }}{% endblock %}
+{% set collectedVolumes = manga.mangaUser|filter(userManga => userManga.user == app.user and userManga.isCollected)|length %}
+{% set isCollectedAll = collectedVolumes == manga.volumes %}
+{% set isCollectedSome = collectedVolumes > 0 and not isCollectedAll %}
+{% set readVolumes = manga.mangaUser|filter(userManga => userManga.user == app.user and userManga.isReaded)|length %}
+{% set isReadedAll = readVolumes == manga.volumes %}
+{% set isReadedSome = readVolumes > 0 and not isReadedAll %}
     <div class="flex flex-col h-screen">
         <h1 class="text-4xl text-center my-2">{{manga.title}}</h1>
         <div class="flex-grow flex items-center justify-center">
@@ -32,34 +38,21 @@
                             <p class="text-3xl">Status : {{manga.status.name}}</p>
                         </div>
                         <div class="flex justify-between">
-                            {% if manga.collected != false %}
-                                <div class="bg-green-600 rounded flex flex-col p-2">
-                                    <p class="text-2xl text-center">Collectionné</p>
-                                    <p class="text-2xl text-center">{{manga.collectedVolumes}} / {{manga.volumes}}</p>
-                                </div>
-                                {% else %}
-                                    <div class="bg-red-700 rounded flex flex-col p-2">
-                                        <p class="text-2xl text-center text-wrap max-w-40">Pas fini de collectionner</p>
-                                        <p class="text-2xl text-center">{{manga.collectedVolumes}} / {{manga.volumes}}</p>
-                                    </div>
-                            {% endif %}
-                            {% if manga.readed != false %}
-                                <div class="bg-blue-600 rounded flex flex-col p-2">
-                                    <p class="text-2xl text-center">Lu</p>
-                                    <p class="text-2xl text-center">{{manga.volumesRead}} / {{manga.volumes}}</p>
-                                </div>
-                                {% else %}
-                                    <div class="bg-red-700 rounded flex flex-col p-2 justify-center">
-                                        <p class="text-2xl text-center">Pas fini de lire</p>
-                                        <p class="text-2xl text-center">{{manga.volumesRead}} / {{manga.volumes}}</p>
-                                    </div>
-                            {% endif %}
+                            <div class="{{ isCollectedAll ? 'bg-green-600' : (isCollectedSome ? 'bg-orange-600 text-wrap max-w-40' : 'bg-red-700 text-wrap max-w-40') }} rounded flex flex-col p-4">
+                                <p class="text-2xl text-center">{{ isCollectedAll ? 'Collectionné' : 'Pas fini de collectionné' }}</p>
+                                <p class="text-2xl text-center">{{ collectedVolumes }} / {{ manga.volumes }}</p>
+                            </div>
+                            
+                            <div class="{{ isReadedAll ? 'bg-blue-600' : (isReadedSome ? 'bg-orange-600 justify-center' : 'bg-red-700 justify-center') }} rounded flex flex-col p-4">
+                                <p class="text-2xl text-center">{{ isReadedAll ? 'Lu' : 'Pas fini de lire' }}</p>
+                                <p class="text-2xl text-center">{{ readVolumes }} / {{ manga.volumes }}</p>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
             {% if manga.status != "Pas commencé" %}
-                <div id="custom" class="w-1/2 h-96 overflow-y-auto mt-4">
+                <div {# id="custom" #} class="w-1/2 h-96 overflow-y-auto mt-4 pe-2">
                     {% for i in 1 .. manga.volumes %}
                         <div class="border-2 border-white rounded my-2">
                             <p class="text-3xl text-center">Tome {{i}}</p>

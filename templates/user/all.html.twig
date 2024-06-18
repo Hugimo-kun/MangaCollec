@@ -1,0 +1,56 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ parent() }}Tout vos mangas{% endblock %}
+
+{% block body %}
+{% block navbar %}{{ parent() }}{% endblock %}
+
+<div class="example-wrapper">
+    <h1 class="text-4xl text-center my-2">Tout vos mangas</h1>
+
+    {% for manga in mangas %}
+        {% set collectedVolumes = manga.mangaUser|filter(userManga => userManga.user == app.user and userManga.isCollected)|length %}
+        {% set isCollectedAll = collectedVolumes == manga.volumes %}
+        {% set isCollectedSome = collectedVolumes > 0 and not isCollectedAll %}
+        {% set readVolumes = manga.mangaUser|filter(userManga => userManga.user == app.user and userManga.isReaded)|length %}
+        {% set isReadedAll = readVolumes == manga.volumes %}
+        {% set isReadedSome = readVolumes > 0 and not isReadedAll %}
+        {% if isCollectedSome or isCollectedAll or isReadedSome or isReadedAll %}
+            <a class="flex border-2 border-red-500 rounded m-4 p-4" href="{{path('manga_id', { id: manga.id })}}">
+                <div class="max-w-sm">
+                    <img src="{{manga.coverImage}}" alt="{{manga.title}}">
+                </div>
+                <div class="flex flex-col justify-between ms-2 w-full">
+                    <div class="h-2/3 flex flex-col justify-around">
+                        <h2 class="text-3xl">{{manga.title}}</h2>
+                        <p class="text-2xl">De {{manga.author.fullName}}</p>
+                        <p class="text-2xl">Édition : {{manga.editor.name}}</p>
+                        {% if manga.status != "Pas commencé" %}
+                            <p class="text-2xl">Date de parution : {{manga.releaseDate|date('d/m/Y')}}</p>
+                        {% endif %}
+                    </div>
+                    <div class="flex justify-between me-2">
+                        {% if manga.volumes > 1 %}
+                            <p class="text-2xl">{{manga.volumes}} tomes</p>
+                        {% else %}
+                            <p class="text-2xl">{{manga.volumes}} tome</p>
+                        {% endif %}
+                        <p class="text-2xl">Status : {{manga.status.name}}</p>
+                    </div>
+                    <div class="flex justify-around">
+                            <div class="{{ isCollectedAll ? 'bg-green-600' : (isCollectedSome ? 'bg-orange-600' : 'bg-red-700') }} rounded flex flex-col p-4">
+                                <p class="text-2xl text-center">{{ isCollectedAll ? 'Collectionné' : 'Pas fini de collectionné' }}</p>
+                                <p class="text-2xl text-center">{{ collectedVolumes }} / {{ manga.volumes }}</p>
+                            </div>
+                            
+                            <div class="{{ isReadedAll ? 'bg-blue-600' : (isReadedSome ? 'bg-orange-600' : 'bg-red-700') }} rounded flex flex-col p-4">
+                                <p class="text-2xl text-center">{{ isReadedAll ? 'Lu' : 'Pas fini de lire' }}</p>
+                                <p class="text-2xl text-center">{{ readVolumes }} / {{ manga.volumes }}</p>
+                            </div>
+                        </div>
+                </div>
+            </a>
+        {% endif %}
+    {% endfor %}
+</div>
+{% endblock %}

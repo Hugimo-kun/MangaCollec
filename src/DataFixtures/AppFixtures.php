@@ -140,6 +140,16 @@ class AppFixtures extends Fixture
             $manager->persist($mangaUser);
         }
 
+        $mangaUser = new MangaUser();
+        $mangaUser
+            ->setUser($user1)
+            ->setManga($mangaChoose[0])
+            ->setVolumeNumber(2)
+            ->setCollected(true)
+            ->setReaded(false);
+
+        $manager->persist($mangaUser);
+
         $manager->flush();
     }
 }
