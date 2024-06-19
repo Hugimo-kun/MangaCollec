@@ -4,6 +4,7 @@
 
 {% block body %}
 {% block navbar %}{{ parent() }}{% endblock %}
+{% set mangaHave = 0 %}
 
 <div class="example-wrapper">
     <h1 class="text-4xl text-center my-2">Tout vos mangas</h1>
@@ -16,6 +17,7 @@
         {% set isReadedAll = readVolumes == manga.volumes %}
         {% set isReadedSome = readVolumes > 0 and not isReadedAll %}
         {% if isCollectedSome or isCollectedAll or isReadedSome or isReadedAll %}
+            {% set mangaHave = 1 %}
             <a class="flex border-2 border-red-500 rounded m-4 p-4" href="{{path('manga_id', { id: manga.id })}}">
                 <div class="max-w-sm">
                     <img src="{{manga.coverImage}}" alt="{{manga.title}}">
@@ -38,19 +40,24 @@
                         <p class="text-2xl">Status : {{manga.status.name}}</p>
                     </div>
                     <div class="flex justify-around">
-                            <div class="{{ isCollectedAll ? 'bg-green-600' : (isCollectedSome ? 'bg-orange-600' : 'bg-red-700') }} rounded flex flex-col p-4">
-                                <p class="text-2xl text-center">{{ isCollectedAll ? 'Collectionné' : 'Pas fini de collectionné' }}</p>
-                                <p class="text-2xl text-center">{{ collectedVolumes }} / {{ manga.volumes }}</p>
-                            </div>
-                            
-                            <div class="{{ isReadedAll ? 'bg-blue-600' : (isReadedSome ? 'bg-orange-600' : 'bg-red-700') }} rounded flex flex-col p-4">
-                                <p class="text-2xl text-center">{{ isReadedAll ? 'Lu' : 'Pas fini de lire' }}</p>
-                                <p class="text-2xl text-center">{{ readVolumes }} / {{ manga.volumes }}</p>
-                            </div>
+                        <div class="{{ isCollectedAll ? 'bg-green-600' : (isCollectedSome ? 'bg-orange-600' : 'bg-red-700') }} rounded flex flex-col p-4">
+                            <p class="text-2xl text-center">{{ isCollectedAll ? 'Collectionné' : 'Pas fini de collectionné' }}</p>
+                            <p class="text-2xl text-center">{{ collectedVolumes }} / {{ manga.volumes }}</p>
                         </div>
+                        
+                        <div class="{{ isReadedAll ? 'bg-blue-600' : (isReadedSome ? 'bg-orange-600' : 'bg-red-700') }} rounded flex flex-col p-4">
+                            <p class="text-2xl text-center">{{ isReadedAll ? 'Lu' : 'Pas fini de lire' }}</p>
+                            <p class="text-2xl text-center">{{ readVolumes }} / {{ manga.volumes }}</p>
+                        </div>
+                    </div>
                 </div>
             </a>
         {% endif %}
     {% endfor %}
+    {% if mangaHave != 1 %}
+        <div class="flex justify-center mt-5">
+            <p class="text-3xl">Vous n'avez encore pas lu ou collectionné de manga</p>
+        </div>
+    {% endif %}
 </div>
 {% endblock %}

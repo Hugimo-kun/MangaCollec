@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}{{ parent() }}{{manga.title}}{% endblock %}
+{% block title %}{{ parent() }}{{ manga.title }}{% endblock %}
 
 {% block body_class %}overflow-hidden{% endblock %}
 
@@ -13,29 +13,29 @@
 {% set isReadedAll = readVolumes == manga.volumes %}
 {% set isReadedSome = readVolumes > 0 and not isReadedAll %}
     <div class="flex flex-col h-screen">
-        <h1 class="text-4xl text-center my-2">{{manga.title}}</h1>
+        <h1 class="text-4xl text-center my-2">{{ manga.title }}</h1>
         <div class="flex-grow flex items-center justify-center">
             <div class="flex flex-col justify-center">
                 <div class="flex border-2 border-red-500 rounded m-4 p-4 h-min justify-self-center">
                     <div class="max-w-sm">
-                        <img src="{{manga.coverImage}}" alt="{{manga.title}}">
+                        <img src="{{ manga.coverImage }}" alt="{{ manga.title }}">
                     </div>
                     <div class="flex flex-col justify-around mx-3 w-full">
                         <div class="flex flex-col">
-                            <p class="text-3xl">{{manga.title}}</p>
-                            <p class="text-3xl">Créée par {{manga.author.fullName}}</p>
-                            <p class="text-3xl">Maison d'édition : {{manga.editor.name}}</p>
+                            <p class="text-3xl">{{ manga.title }}</p>
+                            <p class="text-3xl">Créée par {{ manga.author.fullName }}</p>
+                            <p class="text-3xl">Maison d'édition : {{ manga.editor.name }}</p>
                             {% if manga.status != "Pas commencé" %}
-                                <p class="text-3xl">Date de parution : {{manga.releaseDate|date('d/m/Y')}}</p>
+                                <p class="text-3xl">Date de parution : {{ manga.releaseDate|date('d/m/Y') }}</p>
                             {% endif %}
                         </div>
                         <div class="flex justify-between me-2">
                             {% if manga.volumes > 1 %}
-                                <p class="text-3xl">{{manga.volumes}} tomes</p>
+                                <p class="text-3xl">{{ manga.volumes }} tomes</p>
                             {% else %}
-                                <p class="text-3xl">{{manga.volumes}} tome</p>
+                                <p class="text-3xl">{{ manga.volumes }} tome</p>
                             {% endif %}
-                            <p class="text-3xl">Status : {{manga.status.name}}</p>
+                            <p class="text-3xl">Status : {{ manga.status.name }}</p>
                         </div>
                         <div class="flex justify-between">
                             <div class="{{ isCollectedAll ? 'bg-green-600' : (isCollectedSome ? 'bg-orange-600 text-wrap max-w-40' : 'bg-red-700 text-wrap max-w-40') }} rounded flex flex-col p-4">
@@ -52,13 +52,36 @@
                 </div>
             </div>
             {% if manga.status != "Pas commencé" %}
-                <div {# id="custom" #} class="w-1/2 h-96 overflow-y-auto mt-4 pe-2">
-                    {% for i in 1 .. manga.volumes %}
+                <div class="w-1/2 h-96 overflow-y-auto mt-4 pe-2">
+                    {% for i in 1..manga.volumes %}
                         <div class="border-2 border-white rounded my-2">
-                            <p class="text-3xl text-center">Tome {{i}}</p>
+                            <p class="text-3xl text-center">Tome {{ i }}</p>
                             <div class="m-1 flex justify-around">
-                            <img class="w-14 bg-orange-500 rounded-full" src="{{ asset('imgs/cross.svg') }}" alt="cross logo">
-                            <img class="w-14 bg-orange-500 rounded-full" src="{{ asset('imgs/eye-closed.svg') }}" alt="eye closed logo">
+                                {% if app.user %}
+                                    {% set mangaUser = manga.mangaUser|filter(userManga => userManga.user == app.user and userManga.volumeNumber == i)|first %}
+                                    {% if mangaUser %}
+                                        <a href="{{ path('change_collected', { 'mangaId': manga.id, 'volume': i }) }}">
+                                            <img class="w-14 {{ mangaUser.isCollected ? 'bg-green-500' : 'bg-orange-500' }} rounded-full" src="{{ asset(mangaUser.isCollected ? 'imgs/check.svg' : 'imgs/cross.svg') }}" alt="{{ mangaUser.isCollected ? 'tome collecté logo' : 'tome pas collecté logo' }}">
+                                        </a>
+                                        <a href="{{ path('change_readed', { 'mangaId': manga.id, 'volume': i }) }}">
+                                            <img class="w-14 {{ mangaUser.isReaded ? 'bg-blue-500' : 'bg-orange-500' }} rounded-full" src="{{ asset(mangaUser.isReaded ? 'imgs/eye-show.svg' : 'imgs/eye-closed.svg') }}" alt="{{ mangaUser.isReaded ? 'tome lu logo' : 'tome pas lu logo' }}">
+                                        </a>
+                                    {% else %}
+                                        <a href="{{ path('change_collected', { 'mangaId': manga.id, 'volume': i }) }}">
+                                            <img class="w-14 bg-orange-500 rounded-full" src="{{ asset('imgs/cross.svg') }}" alt="tome pas collecté logo">
+                                        </a>
+                                        <a href="{{ path('change_readed', { 'mangaId': manga.id, 'volume': i }) }}">
+                                            <img class="w-14 bg-orange-500 rounded-full" src="{{ asset('imgs/eye-closed.svg') }}" alt="tome pas lu logo">
+                                        </a>
+                                    {% endif %}
+                                {% else %}
+                                    <a href="{{ path('app_login') }}">
+                                        <img class="w-14 bg-orange-500 rounded-full" src="{{ asset('imgs/cross.svg') }}" alt="tome pas collecté logo">
+                                    </a>
+                                    <a href="{{ path('app_login') }}">
+                                        <img class="w-14 bg-orange-500 rounded-full" src="{{ asset('imgs/eye-closed.svg') }}" alt="tome pas lu logo">
+                                    </a>
+                                {% endif %}
                             </div>
                         </div>
                     {% endfor %}

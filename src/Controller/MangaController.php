@@ -3,8 +3,10 @@
 namespace App\Controller;
 
 use App\Entity\Manga;
+use App\Entity\MangaUser;
 use App\Entity\User;
 use App\Repository\MangaRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
@@ -43,5 +45,54 @@ class MangaController extends AbstractController
         return $this->render('user/all.html.twig', [
             'mangas' => $mangas
         ]);
+    }
+    #[Route('/change-collected/{mangaId}/{volume}', name: 'change_collected')]
+    public function changeCollected(int $mangaId, int $volume, EntityManagerInterface $em): Response
+    {
+        $user = $this->getUser();
+        $mangaUser = $em->getRepository(MangaUser::class)->findOneBy([
+            'user' => $user,
+            'manga' => $mangaId,
+            'volume_number' => $volume,
+        ]);
+
+        if (!$mangaUser) {
+            $mangaUser = new MangaUser();
+            $mangaUser->setUser($user);
+            $mangaUser->setManga($em->getReference(Manga::class, $mangaId));
+            $mangaUser->setVolumeNumber($volume);
+            $mangaUser->setReaded(false);
+        }
+
+        $mangaUser->setCollected(!$mangaUser->isCollected());
+        $em->persist($mangaUser);
+        $em->flush();
+
+        return $this->redirectToRoute('manga_id', ['id' => $mangaId]);
+    }
+
+    #[Route('/change-readed/{mangaId}/{volume}', name: 'change_readed')]
+    public function changeReaded(int $mangaId, int $volume, EntityManagerInterface $em): Response
+    {
+        $user = $this->getUser();
+        $mangaUser = $em->getRepository(MangaUser::class)->findOneBy([
+            'user' => $user,
+            'manga' => $mangaId,
+            'volume_number' => $volume,
+        ]);
+
+        if (!$mangaUser) {
+            $mangaUser = new MangaUser();
+            $mangaUser->setUser($user);
+            $mangaUser->setManga($em->getReference(Manga::class, $mangaId));
+            $mangaUser->setVolumeNumber($volume);
+            $mangaUser->setCollected(false);
+        }
+
+        $mangaUser->setReaded(!$mangaUser->isReaded());
+        $em->persist($mangaUser);
+        $em->flush();
+
+        return $this->redirectToRoute('manga_id', ['id' => $mangaId]);
     }
 }

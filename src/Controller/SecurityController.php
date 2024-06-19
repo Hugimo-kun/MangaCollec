@@ -45,14 +45,19 @@ class SecurityController extends AbstractController
         $form->handleRequest($req);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $em->persist($user);
-            $em->flush();
+            try {
+                $em->persist($user);
+                $em->flush();
 
-            $emailNotification->sendSignInConfirmationEmail($user);
+                $emailNotification->sendSignInConfirmationEmail($user);
 
-            $security->login($user);
+                $security->login($user);
 
-            return $this->redirectToRoute('app_signIn_thanks', ['email' => $user->getEmail()]);
+                return $this->redirectToRoute('app_signIn_thanks', ['email' => $user->getEmail()]);
+            } catch (\Exception $e) {
+                $this->addFlash('error', "L'email est déjà utilisé");
+                return $this->redirectToRoute('app_signIn');
+            }
         }
 
         return $this->render('security/signIn.html.twig', [
