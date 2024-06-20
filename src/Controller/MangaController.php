@@ -6,6 +6,7 @@ use App\Entity\Manga;
 use App\Entity\MangaUser;
 use App\Entity\User;
 use App\Repository\MangaRepository;
+use App\Repository\MangaUserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -47,7 +48,7 @@ class MangaController extends AbstractController
         ]);
     }
     #[Route('/change-collected/{mangaId}/{volume}', name: 'change_collected')]
-    public function changeCollected(int $mangaId, int $volume, EntityManagerInterface $em): Response
+    public function changeCollected(int $mangaId, int $volume, EntityManagerInterface $em, MangaUserRepository $mangaUserRepository): Response
     {
         $user = $this->getUser();
         $mangaUser = $em->getRepository(MangaUser::class)->findOneBy([
@@ -64,8 +65,18 @@ class MangaController extends AbstractController
             $mangaUser->setReaded(false);
         }
 
-        $mangaUser->setCollected(!$mangaUser->isCollected());
-        $em->persist($mangaUser);
+        if ($mangaUser->isCollected() === true) {
+            $mangaUser->setCollected(false);
+            if ($mangaUser->isReaded() === false) {
+                $em->remove($mangaUser);
+            } else {
+                $em->persist($mangaUser);
+            }
+        } else {
+            $mangaUser->setCollected(true);
+            $em->persist($mangaUser);
+        }
+
         $em->flush();
 
         return $this->redirectToRoute('manga_id', ['id' => $mangaId]);
@@ -89,8 +100,17 @@ class MangaController extends AbstractController
             $mangaUser->setCollected(false);
         }
 
-        $mangaUser->setReaded(!$mangaUser->isReaded());
-        $em->persist($mangaUser);
+        if ($mangaUser->isReaded() === true) {
+            $mangaUser->setReaded(false);
+            if ($mangaUser->isCollected() === false) {
+                $em->remove($mangaUser);
+            } else {
+                $em->persist($mangaUser);
+            }
+        } else {
+            $mangaUser->setReaded(true);
+            $em->persist($mangaUser);
+        }
         $em->flush();
 
         return $this->redirectToRoute('manga_id', ['id' => $mangaId]);

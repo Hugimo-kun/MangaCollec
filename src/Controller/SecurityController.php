@@ -4,7 +4,7 @@ namespace App\Controller;
 
 use App\Controller\Newsletter\EmailNotification;
 use App\Entity\User;
-use App\Form\SignInType;
+use App\Form\SignUpType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Bundle\SecurityBundle\Security;
@@ -36,11 +36,11 @@ class SecurityController extends AbstractController
         throw new \LogicException('This method can be blank - it will be intercepted by the logout key on your firewall.');
     }
 
-    #[Route(path: '/inscription', name: 'app_signIn')]
-    public function signIn(Request $req, EntityManagerInterface $em, EmailNotification $emailNotification, Security $security): Response
+    #[Route(path: '/inscription', name: 'app_signUp')]
+    public function signUp(Request $req, EntityManagerInterface $em, EmailNotification $emailNotification, Security $security): Response
     {
         $user = new User();
-        $form = $this->createForm(SignInType::class, $user);
+        $form = $this->createForm(SignUpType::class, $user);
 
         $form->handleRequest($req);
 
@@ -49,24 +49,24 @@ class SecurityController extends AbstractController
                 $em->persist($user);
                 $em->flush();
 
-                $emailNotification->sendSignInConfirmationEmail($user);
+                $emailNotification->sendSignUpConfirmationEmail($user);
 
                 $security->login($user);
 
-                return $this->redirectToRoute('app_signIn_thanks', ['email' => $user->getEmail()]);
+                return $this->redirectToRoute('app_signUp_thanks', ['email' => $user->getEmail()]);
             } catch (\Exception $e) {
                 $this->addFlash('error', "L'email est déjà utilisé");
-                return $this->redirectToRoute('app_signIn');
+                return $this->redirectToRoute('app_signUp');
             }
         }
 
-        return $this->render('security/signIn.html.twig', [
-            'signInForm' => $form,
+        return $this->render('security/signUp.html.twig', [
+            'signUpForm' => $form,
         ]);
     }
-    #[Route('/inscription/thanks/{email}', name: 'app_signIn_thanks')]
+    #[Route('/inscription/thanks/{email}', name: 'app_signUp_thanks')]
     public function thanks(string $email): Response
     {
-        return $this->render('security/signInThanks.html.twig', ['email' => $email]);
+        return $this->render('security/signUpThanks.html.twig', ['email' => $email]);
     }
 }

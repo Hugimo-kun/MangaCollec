@@ -26,22 +26,22 @@
                value="{{ csrf_token('authenticate') }}"
         >
 
-        {#
-            Uncomment this section and add a remember_me option below your firewall to activate remember me functionality.
-            See https://symfony.com/doc/current/security/remember_me.html
+        
+            {# Uncomment this section and add a remember_me option below your firewall to activate remember me functionality.
+            See https://symfony.com/doc/current/security/remember_me.html #}
 
-            <div class="checkbox mb-3">
-                <label>
-                    <input type="checkbox" name="_remember_me"> Remember me
+            <div class="checkbox my-3">
+                <label class="text-xl">
+                    <input type="checkbox" name="_remember_me"> Se souvenir de moi
                 </label>
             </div>
-        #}
+       
         <div class="self-center my-5">
             <button class="bg-sky-600 p-1 rounded hover:bg-sky-700 text-2xl max-w-xs text-white" type="submit">
                 Se connecter
             </button>
         </div>
     </form>
-    <p class="text-xl text-center">Première visite sur MangaCollec ? <a class="font-bold" href="{{path('app_signIn')}}">Inscrivez-vous.</a></p>
+    <p class="text-xl text-center">Première visite sur MangaCollec ? <a class="font-bold" href="{{path('app_signUp')}}">Inscrivez-vous.</a></p>
 </div>
 {% endblock %}

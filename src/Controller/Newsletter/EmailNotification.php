@@ -30,7 +30,7 @@ class EmailNotification
         $this->mailer->send($email);
     }
 
-    public function sendSignInConfirmationEmail(User $user): void
+    public function sendSignUpConfirmationEmail(User $user): void
     {
         $email = (new Email())
             ->from($this->adminEmail)
