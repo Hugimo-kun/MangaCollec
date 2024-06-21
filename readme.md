@@ -20,3 +20,5 @@ Il y a donc plusieurs façons de recevoir un email, déja l'admin peut recevoir 
 L'admin peut ajouter/supprimer/modifier un manga quand il est connecté via l'url "/admin".
 
 Un utilisateur peut ajouter/enlever un volume d'un manga à sa collection (personnelle) et aussi dire si il l'a lu ou non lorsqu'il va sur un manga en particulier.
+
+PS : Il y a un message flash quand on essaye de s'inscrire avec un email qui est déja inscrit.
