@@ -19,7 +19,7 @@ class AppFixtures extends Fixture
     private const NAME_EDITOR = ["Shueisha", "Kodansha", "Shogakukan", "Hakusensha", "Square Enix", "Pas définie"];
     private const NAME_STATUS = ["Terminé", "En cours", "Pas commencé"];
     private const NAME_AUTHOR = ["Eiichiro Oda", "Hajime Isayama", "Karuho Shiina", "Chica Umino", "Hiromu Arakawa", "Yoshihiro Togashi", "Shuzo Oshimi", "Kiyohiko Azuma", "Natsuki Takaya", "Atsushi Ōkubo", "Hirohiko Araki", "Katsuhiro Otomo", "Naoki Urasawa", "Yoshiki Nakamura", "Yana Toboso", "Kohei Horikoshi", "Hiro Mashima", "Rumiko Takahashi", "Mizuho Kusanagi", "Shinobu Ohtaka", "Masashi Kishimoto", "Yukito Kishiro", "Toru Fujisawa", "Ai Yazawa", "Jun Mochizuki", "Akira Toriyama", "Hitoshi Iwaaki", "Tetsu Kariya", "Bisco Hatori", "Kazue Kato", "Yoko Kamio", "Nakaba Suzuki", "Naoki Urasawa", "Kentaro Miura", "Satsuki Yoshino"];
-    private const NUMBER_VOLUME_AOT = 6;
+    private const NUMBER_VOLUME_AKIRA = 6;
     public function __construct(private UserPasswordHasherInterface $hasher)
     {
     }
@@ -116,19 +116,19 @@ class AppFixtures extends Fixture
         $user1 = new User();
         $user1
             ->setEmail("user@mangacollec.com")
-            ->setPassword("quoicoubeh");
+            ->setPassword("imbatman");
 
         $manager->persist($user1);
 
         $user2 = new User();
         $user2
             ->setEmail("admin@mangacollec.com")
-            ->setPassword("bobby")
+            ->setPassword("admin1234")
             ->setRoles(["ROLE_ADMIN"]);
 
         $manager->persist($user2);
 
-        for ($i = 0; $i < self::NUMBER_VOLUME_AOT; $i++) {
+        for ($i = 1; $i < self::NUMBER_VOLUME_AKIRA + 1; $i++) {
             $mangaUser = new MangaUser();
             $mangaUser
                 ->setUser($user1)

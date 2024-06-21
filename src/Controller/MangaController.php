@@ -5,10 +5,13 @@ namespace App\Controller;
 use App\Entity\Manga;
 use App\Entity\MangaUser;
 use App\Entity\User;
+use App\Form\SearchType;
 use App\Repository\MangaRepository;
 use App\Repository\MangaUserRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Core\Security;
@@ -16,11 +19,28 @@ use Symfony\Component\Security\Core\Security;
 class MangaController extends AbstractController
 {
     #[Route('/manga', name: 'manga_all')]
-    public function listeManga(MangaRepository $mangaRepository): Response
+    public function listeManga(MangaRepository $mangaRepository, Request $request, PaginatorInterface $paginator): Response
     {
-        $mangas = $mangaRepository->findBy([], ['title' => 'asc']);
+        $empty = null;
+        $form = $this->createForm(SearchType::class);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $query = $form->get('query')->getData();
+            $mangas = $mangaRepository->findBySearch($query);
+        } else {
+            $mangas = $mangaRepository->findAllManga();
+        }
+
+        $pagination = $paginator->paginate(
+            $mangas,
+            $request->query->getInt('page', 1),
+        );
+
         return $this->render('manga/all.html.twig', [
-            'mangas' => $mangas
+            'pagination' => $pagination,
+            'searchForm' => $form->createView(),
+            'empty' => $empty
         ]);
     }
 

@@ -16,6 +16,25 @@ class MangaRepository extends ServiceEntityRepository
         parent::__construct($registry, Manga::class);
     }
 
+    public function findBySearch(?string $value)
+    {
+        $qb = $this->createQueryBuilder('m');
+
+        $qb->andWhere('m.title LIKE :value')
+            ->setParameter('value', '%' . $value . '%')
+            ->orderBy('m.title', 'ASC');
+
+        return $qb->getQuery()->getResult();
+    }
+
+    public function findAllManga()
+    {
+        $qb = $this->createQueryBuilder('m');
+
+        $qb->orderBy('m.title', 'ASC');
+
+        return $qb->getQuery();
+    }
     //    /**
     //     * @return Manga[] Returns an array of Manga objects
     //     */
